@@ -1,0 +1,14 @@
+<%- include("../partials/header") -%>
+
+<h1>All items</h1>
+
+<% foundItems.forEach((item)=>{ %>
+<p><%= item.name %></p>
+<p><%= item.price %></p>
+<a href="/items/<%= item._id %>" class="btn btn-info">More Info</a>
+<hr>
+<% }); %>
+
+<a class="btn btn-large btn-dark" href="/items/new">Add Item</a>
+
+<%- include("../partials/footer") -%>

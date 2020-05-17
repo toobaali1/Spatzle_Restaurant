@@ -1,0 +1,12 @@
+<%- include("../partials/header") -%>
+
+<h1>Add Item</h1>
+
+<form action="/items" method="post">
+    <input type="text" name="name" placeholder="Item Name">
+    <input type="text" name="price" placeholder="Price">
+    <input type="text" name="description" placeholder="Description">
+    <button class="btn btn-info" type="submit">Add Item to database</button>
+</form>
+
+<%- include("../partials/footer") -%>
