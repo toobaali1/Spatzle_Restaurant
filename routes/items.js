@@ -35,7 +35,7 @@ router.post("/items", async (req, res) => {
 
 // Show an item details
 router.get("/items/:id", (req, res) => {
-    Item.findById(req.params.id, (err, foundItem) => {
+    Item.findById(req.params.id).populate("comments").exec((err, foundItem) => {
         if (err) {
             return res.redirect("/items");
         }

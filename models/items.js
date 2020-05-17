@@ -10,7 +10,13 @@ const itemSchema = new mongoose.Schema({
     },
     description: {
         type: String
-    }
+    },
+    comments: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Comment"
+        }
+    ]
 });
 
 const Item = new mongoose.model("Item", itemSchema);

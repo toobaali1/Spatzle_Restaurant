@@ -4,8 +4,19 @@
 <h3><%= foundItem.price %></h3>
 <p><%= foundItem.description %></p>
 
-<a class="btn btn-warning" href="">Leave review</a>
+<a class="btn btn-warning" href="/items/<%= foundItem._id %>/comments/new">Leave review</a>
+<br>
 
 <a href="/items">Go back to items</a>
+
+<br><br><br>
+<h3>Comments</h3>
+<% foundItem.comments.forEach((comment)=>{ %>
+<p><%= comment.text %></p>
+<p><%= comment.author %></p>
+<hr>
+
+<% }) %>
+
 
 <%- include("../partials/footer") -%>
