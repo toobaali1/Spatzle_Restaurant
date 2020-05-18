@@ -1,0 +1,13 @@
+<%- include("../partials/header") -%>
+
+<h1>sign in as admin</h1>
+
+<form action="/admin/login" method="post">
+
+    <input type="text" name="username" placeholder="Admin Username">
+    <input type="password" name="password" placeholder="Enter Admin Code">
+
+    <button class="btn btn-info" type="submit">Submit</button>
+</form>
+
+<%- include("../partials/footer") -%>

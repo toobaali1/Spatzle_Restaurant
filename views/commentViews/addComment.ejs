@@ -1,10 +1,9 @@
 <%- include("../partials/header") -%>
 
-<h1>Add Review</h1>
+<h1>Add Review to <%= foundItem.name %></h1>
 
-<form action="/items/<%= id %>/comments" method="post">
+<form action="/items/<%= foundItem._id %>/comments" method="post">
     <input type="text" name="comment" placeholder="Your review here">
-    <input type="text" name="author" placeholder="Author">
 
     <button class="btn btn-info" type="submit">Submit Review</button>
 </form>

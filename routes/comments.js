@@ -3,41 +3,28 @@ const router = express.Router();
 
 const Comment = require("../models/comments");
 const Item = require("../models/items")
+const { isLoggedIn } = require("../middleware/auth");
 
-// router.get("/comments", (req, res) => {
-//     const comment = new Comment({
-//         text: "I am a test comment",
-//         author: "Jhon Doe"
-//     });
-
-//     comment.save();
-
-//     Item.findOne({ name: "Burger" }, (err, found) => {
-//         console.log(comment);
-
-//         found.comments.push(comment);
-//         found.save();
-//         res.send("Succusful in adding comment to burger");
-//     });
-
-
-// });
-
-router.get("/items/:id/comments/new", (req, res) => {
-    res.render("commentViews/addComment", { id: req.params.id });
+router.get("/items/:id/comments/new", isLoggedIn, (req, res) => {
+    Item.findById(req.params.id, (err, foundItem) => {
+        res.render("commentViews/addComment", { foundItem });
+    });
 });
 
-router.post("/items/:id/comments", async (req, res) => {
+router.post("/items/:id/comments", isLoggedIn, async (req, res) => {
     const comment = new Comment({
         text: req.body.comment,
-        author: req.body.author
+        author: {
+            id: req.user._id,
+            username: req.user.username
+        }
     });
 
     await comment.save();
 
-    Item.findById(req.params.id, (err, founditem) => {
-        founditem.comments.push(comment);
-        founditem.save();
+    Item.findById(req.params.id, (err, foundItem) => {
+        foundItem.comments.push(comment);
+        foundItem.save();
         res.redirect("/items/" + req.params.id);
     });
 
