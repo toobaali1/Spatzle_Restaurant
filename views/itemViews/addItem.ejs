@@ -2,10 +2,12 @@
 
 <h1>Add Item</h1>
 
-<form action="/items" method="post">
-    <input type="text" name="name" placeholder="Item Name">
-    <input type="text" name="price" placeholder="Price">
-    <input type="text" name="description" placeholder="Description">
+<form action="/items" method="post" enctype="multipart/form-data">
+    <input type="text" name="name" placeholder="Item Name" required>
+    <input type="text" name="price" placeholder="Price" required>
+    <input type="text" name="description" placeholder="Description" required>
+    <input type="file" name="file">
+    <br> <br>
     <button class="btn btn-info" type="submit">Add Item to database</button>
 </form>
 

@@ -3,6 +3,7 @@
 <h1>All items</h1>
 
 <% foundItems.forEach((item)=>{ %>
+<img src="../../uploads/<%= item.image %>" alt="<%= item.name %>" width="250px">
 <p><%= item.name %></p>
 <p><%= item.price %></p>
 <a href="/items/<%= item._id %>" class="btn btn-info">More Info</a>

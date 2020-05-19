@@ -3,6 +3,7 @@ const passport = require("passport");
 const User = require("../models/user");
 
 const router = express.Router();
+const { checkAdminAuthorization } = require("../middleware/auth");
 
 // show sign up form
 router.get("/register", (req, res) => {
@@ -29,12 +30,31 @@ router.get("/login", (req, res) => {
     res.render("userAuthViews/login");
 });
 
-// Login existing user
-router.post("/login", passport.authenticate("local", {
-    successRedirect: "/items",
-    failureRedirect: "/login"
-}), (req, res) => {
+router.post('/login', (req, res, next) => {
+    passport.authenticate('local',
+        (err, user, info) => {
+            if (err) {
+                return next(err);
+            }
 
+            if (!user) {
+                return res.redirect("/login");
+            }
+
+            req.logIn(user, function (err) {
+                if (err) {
+                    return next(err);
+                }
+                if (user.username === "admin") {
+                    req.logout();
+                    return res.redirect("/login")
+                }
+
+
+                return res.redirect('/items');
+            });
+
+        })(req, res, next);
 });
 
 // Logout User
@@ -43,9 +63,10 @@ router.get("/logout", (req, res) => {
     res.redirect("/items");
 });
 
+// ADMIN ROUTES
 // show admin dashboard
-router.get("/admin/dashboard", (req, res) => {
-    res.render("itemViews/adminItems");
+router.get("/admin/dashboard", checkAdminAuthorization, (req, res) => {
+    res.render("itemViews/adminDashboard");
 });
 
 // show admin page

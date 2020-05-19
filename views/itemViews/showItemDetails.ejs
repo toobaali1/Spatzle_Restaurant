@@ -14,9 +14,18 @@
 <% foundItem.comments.forEach((comment)=>{ %>
 <p><strong><%= comment.author.username %></strong></p>
 <p><%= comment.text %></p>
+
+<% if(currentUser && currentUser._id.equals(comment.author.id)){ %>
+<a class="btn btn-warning" href="/items/<%= foundItem._id %>/comments/<%= comment._id %>/edit"> Edit </a>
+
+<form action="/items/<%= foundItem._id %>/comments/<%= comment._id %>?_method=DELETE" method="post">
+    <button type="submit" class="btn btn-danger">Delete</button>
+</form>
+<% } %>
+
 <hr>
 
-<% }) %>
+<% }); %>
 
 
 <%- include("../partials/footer") -%>

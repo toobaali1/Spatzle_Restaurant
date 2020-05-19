@@ -11,6 +11,9 @@ const itemSchema = new mongoose.Schema({
     description: {
         type: String
     },
+    image: {
+        type: String
+    },
     comments: [
         {
             type: mongoose.Schema.Types.ObjectId,

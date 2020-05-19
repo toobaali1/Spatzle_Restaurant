@@ -1,7 +1,10 @@
 const express = require("express");
+const multer = require("multer");
+const path = require("path");
 const router = express.Router();
 
 const Item = require("../models/items");
+const { checkAdminAuthorization } = require("../middleware/auth");
 
 // Show all items
 router.get("/items", (req, res) => {
@@ -16,17 +19,30 @@ router.get("/items", (req, res) => {
 });
 
 
-// Show add new Item form (?add auth for admin)
-router.get("/items/new", (req, res) => {
+// Show add new Item form 
+router.get("/items/new", checkAdminAuthorization, (req, res) => {
     res.render("itemViews/addItem");
 });
 
-// Add new item to database (?add auth for admin)
-router.post("/items", async (req, res) => {
+const Storage = multer.diskStorage({
+    destination: "./public/uploads",
+    filename: (req, file, cb) => {
+        cb(null, file.fieldname + "_" + Date.now() + path.extname(file.originalname));
+    }
+
+});
+
+const upload = multer({
+    storage: Storage
+}).single("file");
+
+// Add new item to database 
+router.post("/items", upload, checkAdminAuthorization, async (req, res) => {
     const item = new Item({
         name: req.body.name,
         price: req.body.price,
-        description: req.body.description
+        description: req.body.description,
+        image: req.file.filename
     });
 
     await item.save();
@@ -48,5 +64,6 @@ router.get("/items/:id", (req, res) => {
         }
     })
 });
+
 
 module.exports = router;

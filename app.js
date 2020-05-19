@@ -1,5 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const methodOverride = require("method-override");
 require("./db/mongoose");
 
 const passport = require("passport");
@@ -10,9 +11,12 @@ const User = require("./models/user");
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static(__dirname + "/public"));
 app.set("view engine", "ejs");
 
 const PORT = process.env.PORT || 3000;
+
+app.use(methodOverride("_method"));
 
 // PASSPORT CONFIGURATION
 app.use(expresSession({
