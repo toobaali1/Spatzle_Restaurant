@@ -4,24 +4,52 @@ const path = require("path");
 const router = express.Router();
 
 const Item = require("../models/items");
+const Category = require("../models/category");
+const Comment = require("../models/comments");
+const ObjectID = require('mongodb').ObjectID;
 const { checkAdminAuthorization } = require("../middleware/auth");
 
 // Show all items
 router.get("/items", (req, res) => {
-    Item.find({}, (err, foundItems) => {
-        if (err) {
-            return res.redirect("/items");
-        }
+    Category.find({}, (err, foundCats) => {
+        Item.find({}, (err, foundItems) => {
+            if (err) {
+                return res.redirect("/items");
+            }
 
-        res.render("itemViews/itemsShowPage", { foundItems });
+            res.render("itemViews/itemsShowPage", { foundItems, foundCats });
 
+        });
+    });
+});
+
+// Show items specific to chosen category
+router.post("/items/search", (req, res) => {
+    if (req.body.category === "all") {
+        return res.redirect("/items");
+    }
+
+    Category.find({}, (err, foundCats) => {
+        Item.find({ category: req.body.category }, (err, foundItems) => {
+            if (err) {
+                return res.redirect("/items");
+            }
+
+            res.render("itemViews/itemsShowPage", { foundItems, foundCats });
+
+        });
     });
 });
 
 
 // Show add new Item form 
 router.get("/items/new", checkAdminAuthorization, (req, res) => {
-    res.render("itemViews/addItem");
+    Category.find({}, (err, foundCats) => {
+        if (!err) {
+            res.render("itemViews/addItem", { foundCats });
+
+        }
+    });
 });
 
 const Storage = multer.diskStorage({
@@ -42,7 +70,8 @@ router.post("/items", upload, checkAdminAuthorization, async (req, res) => {
         name: req.body.name,
         price: req.body.price,
         description: req.body.description,
-        image: req.file.filename
+        image: req.file.filename,
+        category: req.body.category
     });
 
     await item.save();
@@ -65,5 +94,48 @@ router.get("/items/:id", (req, res) => {
     })
 });
 
+// show edit form
+router.get("/items/:id/edit", checkAdminAuthorization, (req, res) => {
+    Category.find({}, (err, foundCats) => {
+        Item.findById(req.params.id, (err, foundItem) => {
+            if (!err) {
+                res.render("itemViews/editItem", { foundItem, foundCats });
 
+            }
+        });
+
+    });
+});
+
+// Edit an existing item
+router.put("/items/:id/edit", upload, checkAdminAuthorization, (req, res) => {
+    Item.findByIdAndUpdate(req.params.id, {
+        name: req.body.name,
+        price: req.body.price,
+        description: req.body.description,
+        image: req.file.filename,
+        category: req.body.category
+
+    }, (err, updatedItem) => {
+        if (!err) {
+            res.redirect("/items");
+        }
+    });
+});
+
+// Delete an item
+router.delete("/items/:id", checkAdminAuthorization, (req, res) => {
+    Item.findById(req.params.id, async (err, foundItem) => {
+        await foundItem.comments.forEach((comment) => {
+            Comment.findByIdAndRemove(ObjectID(comment), (err, result) => {
+                console.log("Removed succesfully");
+            });
+        });
+    });
+
+    Item.findByIdAndRemove(req.params.id, (err, result) => {
+        res.redirect("/items");
+
+    });
+});
 module.exports = router;

@@ -19,6 +19,11 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
             <ul class="navbar-nav ml-auto">
+                <% if(currentUser && currentUser.username === "admin"){ %>
+                <li class="navbar-item">
+                    <a class="nav-link" href="/admin/dashboard">Dashboard</a>
+                </li>
+                <% } %>
                 <% if(!currentUser){ %>
                 <li class="navbar-item">
                     <a class="nav-link" href="/login">Login</a>
@@ -34,6 +39,8 @@
                     <a class="nav-link" href="/logout">Logout</a>
                 </li>
                 <% } %>
+
+
             </ul>
         </div>
     </nav>

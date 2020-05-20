@@ -1,12 +1,32 @@
 <%- include("../partials/header") -%>
 
 <h1>All items</h1>
+<form action="/items/search" method="post">
+    Search By Category
+    <select name="category">
+        <option value="all">All</option>
+        <% foundCats.forEach((category)=>{ %>
+        <option value="<%= category.name %>"><%= category.name %></option>
+        <% }); %>
+    </select>
+    <button type="submit">Search</button>
+</form>
+
+<br><br><br>
 
 <% foundItems.forEach((item)=>{ %>
 <img src="../../uploads/<%= item.image %>" alt="<%= item.name %>" width="250px">
 <p><%= item.name %></p>
 <p><%= item.price %></p>
 <a href="/items/<%= item._id %>" class="btn btn-info">More Info</a>
+<% if(currentUser && currentUser.username === "admin"){ %>
+<a href="/items/<%= item._id %>/edit" class="btn btn-warning">Edit</a>
+
+<form action="/items/<%= item._id %>?_method=DELETE" method="post">
+    <button type="submit" class="btn btn-danger">Delete</button>
+</form>
+
+<% } %>
 <hr>
 <% }); %>
 

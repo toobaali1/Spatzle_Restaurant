@@ -52,6 +52,9 @@ app.use(commentsRoute);
 const usersRoute = require("./routes/users");
 app.use(usersRoute);
 
+const categoryRoute = require("./routes/category");
+app.use(categoryRoute);
+
 app.listen(PORT, () => {
     console.log("Server is up on port", PORT);
 });

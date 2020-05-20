@@ -1,0 +1,11 @@
+<%- include("../partials/header") -%>
+
+<h3>Edit <%= foundCat._name %> Category</h3>
+
+<form action="/category/<%= foundCat._id %>?_method=PUT" method="post">
+    <input type="hidden" name="oldName" value="<%= foundCat.name%>">
+    <input type="text" name="name" value="<%= foundCat.name%>" required>
+    <button class="btn btn-info" type="submit">Submit</button>
+</form>
+
+<%- include("../partials/footer") -%>
