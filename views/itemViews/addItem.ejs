@@ -1,19 +1,38 @@
 <%- include("../partials/header") -%>
 
-<h1>Add Item</h1>
+<div class="custom-form">
+    <h1>Add Item</h1>
+    <form class="ui form" action="/items" method="post" enctype="multipart/form-data">
+        <div class="field">
+            <label>Item Name</label>
+            <input type="text" name="name" placeholder="Item Name" required>
+        </div>
+        <div class="field">
+            <label>Price</label>
+            <input type="text" name="price" placeholder="Price" required>
+        </div>
 
-<form action="/items" method="post" enctype="multipart/form-data">
-    <input type="text" name="name" placeholder="Item Name" required>
-    <input type="text" name="price" placeholder="Price" required>
-    <input type="text" name="description" placeholder="Description" required>
-    <select name="category">
-        <% foundCats.forEach((category)=>{ %>
-        <option value="<%= category.name %>"><%= category.name %></option>
-        <% }); %>
-    </select>
-    <input type="file" name="file" required>
-    <br> <br>
-    <button class="btn btn-info" type="submit">Add Item to database</button>
-</form>
+        <div class="field">
+            <label>Description</label>
+            <textarea  name="description" placeholder="Description" required></textarea>
+        </div>
+
+        <div class="field">
+            <label>Category</label>
+            <select name="category">
+                <% foundCats.forEach((category)=>{ %>
+                <option value="<%= category.name %>"><%= category.name %></option>
+                <% }); %>
+            </select>
+        </div>
+
+        <div class="field">
+            <label>Choose Picture</label>
+            <input type="file" name="file" required>
+            <br> <br>
+        </div>
+        <button class="ui orange inverted button" type="submit">Add Item to Menu</button>
+    </form>
+</div>
 
 <%- include("../partials/footer") -%>

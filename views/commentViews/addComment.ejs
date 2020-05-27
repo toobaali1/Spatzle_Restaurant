@@ -1,11 +1,15 @@
 <%- include("../partials/header") -%>
 
-<h1>Add Review to <%= foundItem.name %></h1>
+<div class="custom-form">
+    <h1>Leave Review for <%= foundItem.name %> </h1>
+    <form class="ui form" action="/items/<%= foundItem._id %>/comments" method="post">
+        <div class="field">
+            <label>Your review</label>
+            <textarea name="comment"></textarea>
+        </div>
+        <button class="ui orange inverted button" type="submit">Submit Review</button>
+    </form>
+</div>
 
-<form action="/items/<%= foundItem._id %>/comments" method="post">
-    <input type="text" name="comment" placeholder="Your review here">
-
-    <button class="btn btn-info" type="submit">Submit Review</button>
-</form>
 
 <%- include("../partials/footer") -%>

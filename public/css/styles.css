@@ -1,0 +1,133 @@
+body {
+	color: #555555;
+	font-family: 'Montserrat', sans-serif;
+	font-size: 1.1rem;
+}
+p {
+	color: #8c8c8c;
+}
+hr {
+	background-color: #ecf4f3;
+	border: none;
+	height: 1px;
+}
+
+#show-info {
+	margin: 3% 8%;
+}
+
+#review-box {
+	border: 1px solid #ecf4f3;
+	margin-top: 40px;
+	padding: 3%;
+}
+
+#author,
+#category-name {
+	font-size: 1.3rem;
+}
+
+#price-para {
+	font-size: 2rem;
+}
+
+#description-para,
+#comment {
+	font-size: 1.2rem;
+}
+
+.delete-button {
+	display: inline;
+}
+.menu-title {
+	font-family: 'Josefin Sans', sans-serif;
+	text-align: center;
+	font-size: 4.5rem;
+	margin: 4% auto;
+}
+
+#review-icon {
+	margin-top: 10px;
+}
+
+#card {
+	margin-bottom: 15px;
+}
+
+#search-form {
+	position: absolute;
+	right: 20px;
+}
+
+.container-cards {
+	margin-top: 50px;
+	padding: 6% 14%;
+}
+
+/* show specific item details */
+#food-image {
+	width: 300px;
+}
+
+/* Forms */
+.custom-form {
+	padding: 5% 30%;
+}
+
+.admin-buttons {
+	margin-top: 20px;
+}
+
+/* Admin dashboard */
+#dashboard {
+	margin-top: 40px;
+	text-align: center;
+}
+
+#dashboard-cards {
+	margin-top: 40px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+/* Landing Page */
+#top-section {
+	width: 100%;
+	height: 625px;
+	background-image: url("../static_images/medium.jpg");
+	background-size: cover;
+	position: absolute;
+	top: 0;
+	z-index: -1;
+}
+
+.overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.7);
+}
+
+#main-heading {
+	color: white;
+	margin-top: 185px;
+	font-size: 4rem;
+	letter-spacing: 1.5rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.center {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+/* Messages */
+#flash-message {
+	margin: auto 10%;
+}

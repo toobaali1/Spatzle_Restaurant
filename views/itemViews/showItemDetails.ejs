@@ -1,31 +1,50 @@
 <%- include("../partials/header") -%>
 
-<h1><%= foundItem.name %></h1>
-<h3><%= foundItem.price %></h3>
-<p><%= foundItem.description %></p>
+<h1 class="menu-title"><%= foundItem.name %></h1>
 
-<a class="btn btn-warning" href="/items/<%= foundItem._id %>/comments/new">Leave review</a>
-<br>
+<div id="show-info">
+    
+        <div class="ui stackable grid">
+            <div class="row">
+                <div class="five wide column">
+                    <img id="food-image" src="<%= foundItem.image %>" alt="<%= foundItem.name %>">
+                    <p id="price-para">Rs. <%= foundItem.price %></p>
+                </div>
+                <div class="eleven wide column">
+                    <p id="description-para"><%= foundItem.description %></p>
+                    <a href="/items" class="ui black labeled icon button">
+                        <i class="left arrow icon"></i>
+                        Go back to items
+                    </a>
+                    <a class="ui inverted orange button" href="/items/<%= foundItem._id %>/comments/new">Leave review</a>
+                </div>
+            </div>
+        </div>
+    
 
-<a href="/items">Go back to items</a>
+    <div id="review-box">
+        <h2>Reviews</h2>
+        <% if(foundItem.comments.length === 0){ %>
+        <p id="comment">No Reviews</p>
+        <% } %>
+        <% foundItem.comments.forEach((comment)=>{ %>
+        <p id="author"><strong><%= comment.author.username %></strong></p>
+        <p id="comment"><%= comment.text %></p>
 
-<br><br><br>
-<h3>Reviews</h3>
-<% foundItem.comments.forEach((comment)=>{ %>
-<p><strong><%= comment.author.username %></strong></p>
-<p><%= comment.text %></p>
+        <% if(currentUser && currentUser._id.equals(comment.author.id)){ %>
+        <a class="ui yellow button" href="/items/<%= foundItem._id %>/comments/<%= comment._id %>/edit"> Edit </a>
 
-<% if(currentUser && currentUser._id.equals(comment.author.id)){ %>
-<a class="btn btn-warning" href="/items/<%= foundItem._id %>/comments/<%= comment._id %>/edit"> Edit </a>
+        <form class="delete-button" action="/items/<%= foundItem._id %>/comments/<%= comment._id %>?_method=DELETE"
+            method="post">
+            <button type="submit" class="ui red button">Delete</button>
+        </form>
+        <% } %>
 
-<form action="/items/<%= foundItem._id %>/comments/<%= comment._id %>?_method=DELETE" method="post">
-    <button type="submit" class="btn btn-danger">Delete</button>
-</form>
-<% } %>
+        <hr>
 
-<hr>
-
-<% }); %>
+        <% }); %>
+    </div>
+</div>
 
 
 <%- include("../partials/footer") -%>

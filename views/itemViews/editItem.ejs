@@ -1,19 +1,39 @@
 <%- include("../partials/header") -%>
 
-<h1>Edit <%= foundItem.name %></h1>
 
-<form action="/items/<%= foundItem._id %>/edit?_method=PUT" method="post" enctype="multipart/form-data">
-    <input type="text" name="name" value="<%= foundItem.name %>" required>
-    <input type="text" name="price" value="<%= foundItem.price %>" required>
-    <input type="text" name="description" value="<%= foundItem.description %>" required>
-    <select name="category">
-        <% foundCats.forEach((category)=>{ %>
-        <option value="<%= category.name %>"><%= category.name %></option>
-        <% }); %>
-    </select>
-    <input type="file" name="file" required>
-    <br> <br>
-    <button class="btn btn-info" type="submit">Update</button>
-</form>
+<div class="custom-form">
+    <h1>Edit <%= foundItem.name %> Details</h1>
+    <form class="ui form" action="/items/<%= foundItem._id %>/edit?_method=PUT" method="post" enctype="multipart/form-data">
+        <div class="field">
+            <label>Item Name</label>
+            <input type="text" name="name" value="<%= foundItem.name %>" required>
+        </div>
+        <div class="field">
+            <label>Price</label>
+            <input type="text" name="price" value="<%= foundItem.price %>" required>
+        </div>
 
+        <div class="field">
+            <label>Description</label>
+            <textarea name="description" required><%= foundItem.description %></textarea>
+        </div>
+
+        <div class="field">
+            <label>Category</label>
+            <select name="category">
+                <% foundCats.forEach((category)=>{ %>
+                <option value="<%= category.name %>"><%= category.name %></option>
+                <% }); %>
+            </select>
+        </div>
+
+        <div class="field">
+            <label>Choose Picture</label>
+            <input type="file" name="file" required>
+            <br> <br>
+        </div>
+        
+        <button class="ui orange inverted button" type="submit">Update</button>
+    </form>
+</div>
 <%- include("../partials/footer") -%>

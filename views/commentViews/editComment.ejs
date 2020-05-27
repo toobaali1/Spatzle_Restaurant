@@ -1,11 +1,16 @@
 <%- include("../partials/header") -%>
 
-<h1>Edit Review to <%= foundItem.name %></h1>
 
-<form action="/items/<%= foundItem._id %>/comments/<%= foundComment._id %>?_method=PUT" method="post">
-    <input type="text" name="comment" value="<%= foundComment.text %>">
-
-    <button class="btn btn-info" type="submit">Submit</button>
-</form>
+<div class="custom-form">
+    <h1>Edit Review for <%= foundItem.name %> </h1>
+    <form class="ui form" action="/items/<%= foundItem._id %>/comments/<%= foundComment._id %>?_method=PUT"
+        method="post">
+        <div class="field">
+            <label>Your review</label>
+            <textarea name="comment"> <%= foundComment.text %></textarea>
+        </div>
+        <button class="ui orange inverted button" type="submit">Submit</button>
+    </form>
+</div>
 
 <%- include("../partials/footer") -%>

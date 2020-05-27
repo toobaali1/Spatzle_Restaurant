@@ -12,7 +12,7 @@
 </head>
 
 <body>
-    <div class="ui secondary pointing menu">
+    <div class="ui secondary pointing inverted menu">
         <a class="item" href="/">
             Spatzle
         </a>
@@ -31,11 +31,3 @@
             <% } %>
         </div>
     </div>
-
-<div id="flash-message">   
-   <% if(error && error.length > 0){ %>
-        <div class="ui red message"><%= error %></div>
-    <%  } else if(success && success.length > 0){ %>
-        <div class="ui green message"><%= success %></div>
-    <%  } %>
-</div>

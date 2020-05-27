@@ -1,22 +1,27 @@
 <%- include("../partials/header") -%>
 
-<h3>Add New Category</h3>
+<div class="custom-form"> 
+<h1>Add New Category</h1>
+    <form class="ui form" action="/category" method="post">
+        <div class="field">
+            <label>Category Name</label>
+            <input type="text" name="name" placeholder="Category Name" required>
+        </div>
+        <button class="ui orange inverted button" type="submit">Add Category</button>
+    </form>
 
-<form action="/category" method="post">
-    <input type="text" name="name" placeholder="Category Name" required>
-    <button class="btn btn-info" type="submit">Add Category to database</button>
-</form>
+    <br>
 
-
-<h1>All Categories</h1>
-<% foundCats.forEach((category)=>{ %>
-<p><%= category.name %></p>
-<a href="/category/<%= category._id %>/edit" class="btn btn-warning">Edit</a>
-<form action="/category/<%= category._id %>?_method=DELETE" method="post">
-    <button class="btn btn-danger" type="submit">Delete</button>
-</form>
-<% }); %>
-
+    <h1>Edit/Delete Categories</h1>
+    <% foundCats.forEach((category)=>{ %>
+    <p id="category-name"><%= category.name %></p>
+    <a href="/category/<%= category._id %>/edit" class="ui yellow button">Edit</a>
+    <form class="delete-button" action="/category/<%= category._id %>?_method=DELETE" method="post">
+        <button class="ui red button" type="submit">Delete</button>
+    </form>
+    <hr>
+    <% }); %>
+</div>
 
 
 <%- include("../partials/footer") -%>

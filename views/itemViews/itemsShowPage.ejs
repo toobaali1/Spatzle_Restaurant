@@ -1,35 +1,58 @@
 <%- include("../partials/header") -%>
 
-<h1>All items</h1>
-<form action="/items/search" method="post">
-    Search By Category
-    <select name="category">
-        <option value="all">All</option>
+
+<h1 class="menu-title">Spatzle's Menu</h1>
+<!-- ---------------------------------------------------------- -->
+<form id="search-form" action="/items/search" method="post">
+    <select name="category" class="ui simple dropdown">
+        <option class="simple item" value="all">All</option>
         <% foundCats.forEach((category)=>{ %>
-        <option value="<%= category.name %>"><%= category.name %></option>
+        <option class="simple item" value="<%= category.name %>"><%= category.name %></option>
         <% }); %>
     </select>
-    <button type="submit">Search</button>
+    <button type="submit" class="ui basic button">Search</button>
 </form>
+<!-- ------------------------------------------------------------------ -->
+<div class="container-cards">
+    <div class="ui three coloumn divided grid">
+        <% foundItems.forEach((item)=>{ %>
+        <div class="coloumn">
+            <div id="card" class="ui card">
+                <div class="image">
+                    <img src="<%= item.image %>" alt="<%= item.name %>">
+                </div>
+                <div class="content">
+                    <a href="/items/<%= item._id %>" class="header"><%= item.name %></a>
 
-<br><br><br>
+                    <div class="meta">
+                        <span>Rs. <%= item.price %></span>
+                    </div>
 
-<% foundItems.forEach((item)=>{ %>
-<img src="../../uploads/<%= item.image %>" alt="<%= item.name %>" width="250px">
-<p><%= item.name %></p>
-<p><%= item.price %></p>
-<a href="/items/<%= item._id %>" class="btn btn-info">More Info</a>
-<% if(currentUser && currentUser.username === "admin"){ %>
-<a href="/items/<%= item._id %>/edit" class="btn btn-warning">Edit</a>
+                    <br>
+                    <span id="review-icon" class="right floated">
+                        <i class="comment outline icon"></i>
+                        <% if(item.comments.length===1){ %>
+                        <%= item.comments.length %> Review
 
-<form action="/items/<%= item._id %>?_method=DELETE" method="post">
-    <button type="submit" class="btn btn-danger">Delete</button>
-</form>
+                        <%}else{%>
+                        <%= item.comments.length %> Reviews
+                        <%}%>
+                    </span>
 
-<% } %>
-<hr>
-<% }); %>
-
-
+            <a href="/items/<%= item._id %>" class="ui brown basic button">More Info</a>
+                        <% if(currentUser && currentUser.username === "admin"){ %>
+                        <div class="admin-buttons">
+                            <a href="/items/<%= item._id %>/edit" class="ui yellow basic button">Edit</a>
+                            <form class="delete-button" action="/items/<%= item._id %>?_method=DELETE" method="post">
+                                <button type="submit" class="ui red basic button">Delete</button>
+                            </form>
+                        </div>
+                        <% } %>
+                </div>
+            </div>
+        </div>
+        <% }); %>
+    </div>
+</div>
 
 <%- include("../partials/footer") -%>

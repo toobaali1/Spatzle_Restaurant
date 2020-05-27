@@ -1,12 +1,19 @@
 <%- include("../partials/header") -%>
 
-<h1>Sign Up</h1>
 
-<form action="/register" method="post">
-    <input type="text" name="username" placeholder="username">
-    <input type="password" name="password" placeholder="password">
-
-    <button class="btn btn-info" type="submit">Sign Up</button>
-</form>
+<div class="custom-form">
+    <h1>Sign Up</h1>
+    <form class="ui form" action="/register" method="post">
+        <div class="field">
+            <label>Username</label>
+            <input type="text" name="username" placeholder="username">
+        </div>
+        <div class="field">
+            <label>Password</label>
+            <input type="password" name="password" placeholder="password">
+        </div>
+        <button class="ui olive inverted button" type="submit">Sign Up</button>
+    </form>
+</div>
 
 <%- include("../partials/footer") -%>

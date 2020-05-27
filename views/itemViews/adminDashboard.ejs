@@ -1,18 +1,46 @@
 <%- include("../partials/header") -%>
-<h1>you are admin</h1>
 
-<p>you can</p>
+<div id="dashboard">
+<h1>Admin Dashboard</h1>
+<!-- ---------------------------------- -->
+<div id="dashboard-cards">
+<div class="ui link cards">
+    <div class="card">
+      <div class="image">
+        <img src="../../static_images/allItems.png">
+      </div>
+      <div class="content">
+        <div class="header"> <a href="/items"> All Items </a></div>
+        <div class="description">
+          View, Edit or Delete existing Items.
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="image">
+        <img src="../../static_images/addItem.png">
+      </div>
+      <div class="content">
+        <div class="header"><a href="/items/new"> Add New Item</a></div>
+        <div class="description">
+          Add a new Item to Menu.
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="image">
+        <img src="../../static_images/addCategory.png">
+      </div>
+      <div class="content">
+        <div class="header"><a href="/category/new"> Add New Category </a></div>
+        <div class="description">
+          Add a new Category, Update/delete existing Categories.
+        </div>
+      </div>
+    </div>
+  </div>
 
-<ul>
-    <li>add items</li>
-    <li>update items</li>
-    <li>delete items</li>
-    <li>see all items</li>
-</ul>
-
-<a class="btn btn-large btn-dark" href="/items">All Items</a>
-<br><br><br>
-<a class="btn btn-large btn-dark" href="/items/new">Add Item</a>
-<br><br><br>
-<a class="btn btn-large btn-dark" href="/category/new">Manipulate Categories</a>
+</div>
+</div>
+<!-- ----------------------------------------- -->
 <%- include("../partials/footer") -%>
