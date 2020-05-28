@@ -96,7 +96,7 @@ router.get('/items/:id', (req, res) => {
 		if (foundItem) {
 			res.render('itemViews/showItemDetails', { foundItem });
 		} else {
-			res.send('Item not found!'); //SHOW 404.........
+			res.render('404');
 		}
 	});
 });

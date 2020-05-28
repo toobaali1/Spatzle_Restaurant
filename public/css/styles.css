@@ -131,3 +131,13 @@ hr {
 #flash-message {
 	margin: auto 10%;
 }
+
+/* 404 Page */
+#not-found-content {
+	text-align: center;
+	margin-top: 15%;
+}
+
+#not-found-content h1 {
+	font-size: 3.5rem;
+}

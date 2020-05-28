@@ -15,7 +15,12 @@ router.post('/register', (req, res) => {
 	const newUser = new User({ username: req.body.username });
 	User.register(newUser, req.body.password, (err, user) => {
 		if (err) {
-			return res.render('userAuthViews/register');
+			if (req.body.username === 'admin') {
+				req.flash('error', "Can't sign up with this username, Try using some other username.");
+			} else {
+				req.flash('error', err.message);
+			}
+			return res.redirect('register');
 		}
 
 		// logs the user in

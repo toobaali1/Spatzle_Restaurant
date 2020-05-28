@@ -65,6 +65,10 @@ app.use(usersRoute);
 const categoryRoute = require('./routes/category');
 app.use(categoryRoute);
 
+app.get('*', (req, res) => {
+	res.render('404');
+});
+
 app.listen(PORT, () => {
 	console.log('Server is up on port', PORT);
 });

@@ -4,7 +4,7 @@
 <h1 class="menu-title">Spatzle's Menu</h1>
 <!-- ---------------------------------------------------------- -->
 <form id="search-form" action="/items/search" method="post">
-    <select name="category" class="ui simple dropdown">
+    <select name="category" class="ui simple dropdown" id="category">
         <option class="simple item" value="all">All</option>
         <% foundCats.forEach((category)=>{ %>
         <option class="simple item" value="<%= category.name %>"><%= category.name %></option>
